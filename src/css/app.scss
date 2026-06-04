@@ -1,1 +1,29 @@
 // app global css
+
+.logbook-page-container {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    left: 50%;
+    top: 70%;
+    width: min(72vw, 340px);
+    height: min(72vw, 340px);
+    transform: translate(-50%, -50%);
+    background: url('/logbook.png') center / contain no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.body--dark .logbook-page-container::before {
+  opacity: 0.05;
+  filter: brightness(1.15);
+}
