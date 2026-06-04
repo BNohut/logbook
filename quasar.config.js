@@ -150,7 +150,23 @@ export default defineConfig((/* ctx */) => {
       workboxMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       // swFilename: 'sw.js',
       // manifestFilename: 'manifest.json',
-      // extendManifestJson (json) {},
+      extendManifestJson(json) {
+        const base = publicPath.endsWith('/') ? publicPath : `${publicPath}/`
+        json.start_url = base
+        json.scope = base
+        if (Array.isArray(json.icons)) {
+          json.icons = json.icons.map((icon) => ({
+            ...icon,
+            src: icon.src.startsWith('http') || icon.src.startsWith(base)
+              ? icon.src
+              : `${base}${icon.src.replace(/^\//, '')}`,
+          }))
+        }
+      },
+      extendGenerateSWOptions(opts) {
+        // Bust outdated caches from pre–publicPath deploys
+        opts.cacheId = 'logbook-gh-pages-v2'
+      },
       // useCredentialsForManifestTag: true,
       // injectPwaMetaTags: false,
       // extendPWACustomSWConf (esbuildConf) {},
