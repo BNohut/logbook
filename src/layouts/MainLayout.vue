@@ -43,7 +43,7 @@
     <q-drawer v-model="leftDrawerOpen" bordered :width="280" :breakpoint="500">
       <div class="drawer-brand q-pa-md text-center">
         <img
-          src="/logbook.png"
+          :src="logoSrc"
           :alt="t('app.title')"
           class="app-logo app-logo--drawer"
           width="120"
@@ -88,6 +88,7 @@ import { useAppLocale } from 'src/composables/useAppLocale'
 const { locale, setLocale, localeOptions, currentLocaleLabel, t } = useAppLocale()
 const route = useRoute()
 const leftDrawerOpen = ref(false)
+const logoSrc = `${import.meta.env.BASE_URL}logbook.png`
 
 const menuItems = computed(() => [
   {

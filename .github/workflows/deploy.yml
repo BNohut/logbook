@@ -24,6 +24,9 @@ jobs:
       - run: npm install
       - run: npm install -g @quasar/cli
       - run: quasar build -m pwa
+        env:
+          # https://<user>.github.io/<repo-name>/
+          PUBLIC_PATH: /${{ github.event.repository.name }}/
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -11,7 +11,7 @@
     width: min(72vw, 340px);
     height: min(72vw, 340px);
     transform: translate(-50%, -50%);
-    background: url('/logbook.png') center / contain no-repeat;
+    background: url('#{$public-path}logbook.png') center / contain no-repeat;
     opacity: 0.05;
     pointer-events: none;
     z-index: 0;

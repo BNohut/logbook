@@ -3,6 +3,9 @@
 
 import { defineConfig } from '#q-app/wrappers'
 
+// GitHub Pages project sites: https://<user>.github.io/<repo>/
+const publicPath = process.env.PUBLIC_PATH || '/'
+
 export default defineConfig((/* ctx */) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -44,7 +47,7 @@ export default defineConfig((/* ctx */) => {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
+      publicPath,
       // analyze: true,
       // env: {},
       // rawDefine: {}
@@ -53,7 +56,14 @@ export default defineConfig((/* ctx */) => {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      extendViteConf(viteConf) {
+        viteConf.css = viteConf.css || {}
+        viteConf.css.preprocessorOptions = viteConf.css.preprocessorOptions || {}
+        viteConf.css.preprocessorOptions.scss = {
+          ...(viteConf.css.preprocessorOptions.scss || {}),
+          additionalData: `$public-path: '${publicPath}' !default;\n`,
+        }
+      },
       // viteVuePluginOptions: {},
 
       vitePlugins: [
